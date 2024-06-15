@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INCO</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Bem-vindo ao Meu Site</h1>
+    </header>
+    <main>
+        <h2>Sobre Mim</h2>
+        <p>Olá! Meu nome é [Seu Nome] e este é o meu primeiro site.</p>
+        <h2>Meus Hobbies</h2>
+        <ul>
+            <li>Leitura</li>
+            <li>Caminhadas</li>
+            <li>Programação</li>
+        </ul>
+        <h2>Informações sobre a Planta do Lote 3</h2>
+        <div id="informacoes-planta">
+            <!-- Aqui serão exibidas as informações da planta -->
+        </div>
+        <h2>Imagem da Planta do Lote 3</h2>
+        <div id="imagem-planta">
+            <!-- Aqui será exibida a imagem da planta -->
+        </div>
+    </main>
+    <footer>
+        <p>© 2024 Meu Primeiro Site. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Script para carregar e exibir os dados da planta do Lote 3 -->
+    <script>
+        // Função para fazer uma requisição AJAX
+        function carregarDadosPlanta() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    const planta = JSON.parse(this.responseText);
+                    console.log('Dados da planta do Lote 3:', planta);
+
+                    // Exemplo de exibição dos dados no HTML
+                    const informacoesPlantaDiv = document.getElementById('informacoes-planta');
+                    informacoesPlantaDiv.innerHTML = `
+                        <h3>${planta.nome}</h3>
+                        <p><strong>Descrição:</strong> ${planta.descricao}</p>
+                        <p><strong>Altura:</strong> ${planta.altura} metros</p>
+                    `;
+
+                    // Exibir a imagem da planta
+                    const imagemPlantaDiv = document.getElementById('imagem-planta');
+                    const imagemPlanta = `<img src="${planta.imagemUrl}" alt="${planta.nome}">`;
+                    imagemPlantaDiv.innerHTML = imagemPlanta;
+                }
+            };
+            xhttp.open("GET", "dados_planta.php", true);
+            xhttp.send();
+        }
+
+        // Chamada da função para carregar os dados da planta ao carregar a página
+        window.onload = carregarDadosPlanta;
+    </script>
+</body>
+</html>
